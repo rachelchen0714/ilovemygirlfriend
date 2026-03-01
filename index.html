@@ -257,6 +257,7 @@
         /* ================= MOBILE RESPONSIVE ================= */
         @media (max-width: 768px) {
 
+            /* Navbar stacked */
             nav {
                 height: auto;
                 padding: 15px 0;
@@ -267,53 +268,74 @@
                 gap: 10px;
             }
 
-            .nav-container .links {
-                gap: 1rem;
+            .links {
+                display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 10px;
             }
 
-            section {
-                padding-top: 18vh;
-            }
-
+            /* Main Section */
             .main-container {
                 flex-direction: column;
-                gap: 30px;
                 text-align: center;
-                padding: 0 20px;
+                gap: 20px;
+                padding: 0 15px;
             }
 
             .main-container .image {
-                width: 90%;
+                width: 100%;
+                max-width: 350px;
                 height: auto;
-                max-height: 350px;
+                margin: 0 auto;
             }
 
             .main-container .content {
                 width: 100%;
             }
 
+            .content h1 {
+                font-size: 1.5rem;
+            }
+
+            .content .typewriter {
+                font-size: 1.8rem;
+            }
+
+            .content p {
+                font-size: 1rem;
+            }
+
+            /* Our Pictures Section */
             .about-details {
-                gap: 20px;
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
             }
 
             .about-details img {
                 width: 90%;
+                max-width: 300px;
                 height: auto;
             }
 
+            /* Countdowns */
             .countdown-box {
                 width: 90%;
+                padding: 20px;
+                margin: 0 auto;
             }
 
-            #imgModal {
-                padding-top: 100px;
+            /* Modal */
+            #imgModal img {
+                max-width: 95%;
+                max-height: 70%;
             }
 
             #closeModal {
-                right: 25px;
-                font-size: 32px;
+                top: 20px;
+                right: 20px;
+                font-size: 28px;
             }
         }
         </style>
