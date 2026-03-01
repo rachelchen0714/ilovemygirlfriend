@@ -5,7 +5,44 @@
     <title>Countdowns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    
     <style>
+
+        /* ================= MOBILE RESPONSIVE ================= */
+        @media (max-width: 768px) {
+
+            nav {
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            section {
+                padding-top: 18vh;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .countdown-box {
+                width: 100%;
+                padding: 20px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
         * {
