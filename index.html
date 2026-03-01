@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Anniversary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb {
+            background: #d47fff;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #b47fff; }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            height: 10vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: black;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo span {
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+        }
+
+        .nav-container .links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-container .links a {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 550;
+            position: relative;
+            text-decoration: none;
+            margin: 0 20px;
+            transition: 0.3s linear;
+        }
+
+        .nav-container .links a::before {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #d47fff;
+            transition: 0.2s linear;
+        }
+
+        .nav-container .links a:hover::before {
+            width: 100%;
+        }
+
+        section {
+            width: 100%;
+            min-height: 90vh;
+            padding-top: 12vh;
+        }
+
+        /* Main Section */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .main-container .image {
+            width: 500px;
+            height: 400px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 0 50px #b47fff;
+            cursor: pointer;
+        }
+
+        .main-container .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s linear;
+        }
+
+        .main-container .image:hover img {
+            transform: scale(1.05);
+        }
+
+        .main-container .content {
+            width: 40%;
+        }
+
+        .content h1 {
+            font-size: clamp(1rem, 1rem + 5vw, 1.8rem);
+        }
+
+        .content h1 span {
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+        }
+
+        .content .typewriter {
+            font-size: clamp(1rem, 1rem + 5vw, 2.5rem);
+            font-weight: 600;
+            color: white;
+        }
+
+        .content .typewriter-text {
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+        }
+
+        .content p {
+            font-size: clamp(0.4rem, 0.2rem + 9vw, 1rem);
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        /* Our Pictures Section */
+        .about {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* REAL centered title – same size & glow */
+        .about .content .title {
+            font-size: clamp(2rem, 4vw + 1rem, 2.5rem);
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .about-details {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .about-details img {
+            width: 350px;
+            height: 350px;
+            border-radius: 30px;
+            object-fit: cover;
+            box-shadow: 0 0 50px #b47fff;
+            transition: transform 0.3s linear;
+            cursor: pointer;
+        }
+
+        .about-details img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        #imgModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 150px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        #imgModal img {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 20px;
+            box-shadow: 0 0 50px #b47fff;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #closeModal:hover {
+            color: #d47fff;
+        }
+
+        .countdown-box {
+            width: 280px;
+            padding: 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 0 40px #b47fff;
+        }
+
+        .countdown-box h3 {
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .time {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="nav-container">
+        <div class="logo"><span>Hi my loveee</span></div>
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#our-pictures">Our Pictures</a>
+            <a href="#countdowns">Countdowns</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Section -->
+<section id="home">
+    <div class="main-container">
+        <div class="image">
+            <img src="main.jpeg" alt="Anniversary Image">
+        </div>
+        <div class="content">
+            <h1>Happy <span>One Year</span> Anniversary!!</h1>
+            <div class="typewriter"><span class="typewriter-text"></span></div>
+            <p>You're the bestest thing ever and I love you so much ❤️</p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Pictures Section -->
+<section class="about" id="our-pictures">
+    <div class="content">
+        <h2 class="title">Our Pictures</h2>
+
+        <div class="about-details">
+            <img src="1.jpeg" alt="Picture 1">
+            <img src="2.jpeg" alt="Picture 2">
+            <img src="3.jpeg" alt="Picture 3">
+            <img src="4.jpeg" alt="Picture 4">
+            <img src="5.jpeg" alt="Picture 5">
+            <img src="6.jpeg" alt="Picture 6">
+            <img src="7.jpeg" alt="Picture 7">
+            <img src="8.jpeg" alt="Picture 8">
+            <img src="9.jpeg" alt="Picture 9">
+        </div>
+    </div>
+</section>
+
+<!-- Countdowns -->
+ <section class="about" id="countdowns">
+    <div class="content">
+        <h2 class="title">Countdowns 💕</h2>
+
+        <div class="about-details">
+            <div class="countdown-box">
+                <h3>Her Birthday 🎂</h3>
+                <div class="time" id="herBirthday"></div>
+            </div>
+
+            <div class="countdown-box">
+                <h3>My Birthday 🎉</h3>
+                <div class="time" id="myBirthday"></div>
+            </div>
+
+            <div class="countdown-box">
+                <h3>Our Anniversary 💖</h3>
+                <div class="time" id="anniversary"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Modal -->
+<div id="imgModal">
+    <span id="closeModal">&times;</span>
+    <img id="modalImg" src="">
+</div>
+
+<!-- Typewriter + Modal JS -->
+<script>
+const message = "I love you so much ❤️";
+const target = document.querySelector(".typewriter-text");
+let index = 0;
+
+function typeWriter() {
+    if (index < message.length) {
+        target.textContent += message[index];
+        index++;
+        setTimeout(typeWriter, 150);
+    }
+}
+
+window.addEventListener("load", typeWriter);
+
+// Modal
+const modal = document.getElementById("imgModal");
+const modalImg = document.getElementById("modalImg");
+const closeModal = document.getElementById("closeModal");
+const galleryImages = document.querySelectorAll(".about-details img");
+
+galleryImages.forEach(img => {
+    img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+    });
+});
+
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+modal.addEventListener("click", e => {
+    if (e.target === modal) modal.style.display = "none";
+});
+
+// Countdown
+function startCountdown(elementId, month, day) {
+    const el = document.getElementById(elementId);
+    const now = new Date();
+    let year = now.getFullYear();
+    let target = new Date(year, month - 1, day);
+
+    if (target < now) {
+        target = new Date(year + 1, month - 1, day);
+    }
+
+    setInterval(() => {
+        const distance = target - new Date();
+
+        if (distance < 0) {
+            el.innerHTML = "Today 🥰";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+}
+
+// YOUR DATES
+startCountdown("herBirthday", 3, 7);
+startCountdown("myBirthday", 7, 14);
+startCountdown("anniversary", 3, 7);
+</script>
+
+</body>
+</html>

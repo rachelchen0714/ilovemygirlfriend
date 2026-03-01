@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdowns</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            height: 10vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: black;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo span {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+        }
+
+        .links a {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .links a::before {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #d47fff;
+            transition: 0.2s;
+        }
+
+        .links a:hover::before {
+            width: 100%;
+        }
+
+        /* Page Content */
+        section {
+            padding-top: 15vh;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #d47fff;
+            text-shadow: 0 0 15px #d47fff;
+        }
+
+        .countdown-box {
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 40px #b47fff;
+        }
+
+        .countdown-box h2 {
+            font-size: 1.8rem;
+            color: #d47fff;
+            text-shadow: 0 0 10px #d47fff;
+            margin-bottom: 10px;
+        }
+
+        .time {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="nav-container">
+        <div class="logo"><span>Hi my loveee</span></div>
+        <div class="links">
+            <a href="index.html">Home</a>
+            <a href="index.html#our-pictures">Our Pictures</a>
+            <a href="countdown.html">Countdowns</a>
+        </div>
+    </div>
+</nav>
+
+<section>
+    <h1>Countdowns 💕</h1>
+
+    <div class="countdown-box">
+        <h2>Our Anniversary 💖</h2>
+        <div class="time" id="anniversary"></div>    
+    </div>
+    
+    <div class="countdown-box">
+        <h2>Jin's Birthday 🎂</h2>
+        <div class="time" id="herBirthday"></div>
+    </div>
+
+    <div class="countdown-box">
+        <h2>Chen's Birthday 🎉</h2>
+        <div class="time" id="myBirthday"></div>
+    </div>
+
+</section>
+
+<script>
+function startCountdown(elementId, month, day) {
+    const el = document.getElementById(elementId);
+    const now = new Date();
+    let year = now.getFullYear();
+
+    let target = new Date(year, month - 1, day);
+
+    if (target < now) {
+        target = new Date(year + 1, month - 1, day);
+    }
+
+    setInterval(() => {
+        const current = new Date().getTime();
+        const distance = target.getTime() - current;
+
+        if (distance < 0) {
+            el.innerHTML = "Today 🥰";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+}
+
+/* YOUR DATES */
+startCountdown("herBirthday", 3, 7);     // March 7
+startCountdown("myBirthday", 7, 14);     // July 14
+startCountdown("anniversary", 3, 7);     // March 7
+</script>
+
+</body>
+</html>
