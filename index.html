@@ -34,6 +34,10 @@
 
         /* Navbar */
         nav {
+            transition: top 0.3s ease;
+        }
+        
+        nav {
             width: 100%;
             height: 10vh;
             position: fixed;
@@ -487,6 +491,24 @@ function startCountdown(elementId, month, day) {
 startCountdown("herBirthday", 3, 7);
 startCountdown("myBirthday", 7, 14);
 startCountdown("anniversary", 3, 7);
+
+// Hide navbar on scroll down, show on scroll up
+let lastScrollTop = 0;
+const navbar = document.querySelector('nav');
+
+window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Scrolling down
+        navbar.style.top = "-10vh"; // hide navbar
+    } else {
+        // Scrolling up
+        navbar.style.top = "0"; // show navbar
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // avoid negative scroll
+});
 </script>
 
 </body>
