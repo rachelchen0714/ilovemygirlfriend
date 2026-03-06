@@ -263,20 +263,28 @@
 
             /* Navbar stacked */
             nav {
-                height: auto;
-                padding: 15px 0;
+                height: 60px;
+                padding: 0 10px;
             }
 
             .nav-container {
-                flex-direction: column;
-                gap: 10px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 1.2rem;
             }
 
             .links {
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                gap: 12px;
+            }
+
+            .links a {
+                font-size: 0.85rem;
+                margin: 0;
             }
 
             /* Main Section */
