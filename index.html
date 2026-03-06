@@ -256,9 +256,9 @@
         /* ================= MOBILE RESPONSIVE ================= */
         @media (max-width: 768px) {
 
-            /* Navbar one line */
+            /* Navbar compact */
             nav {
-                height: 60px;
+                height: 50px;
                 padding: 0 10px;
             }
 
@@ -269,17 +269,18 @@
             }
 
             .logo {
-                font-size: 1.2rem;
+                font-size: 1rem; /* smaller logo */
             }
 
             .links {
                 display: flex;
-                gap: 12px;
+                gap: 8px; /* closer together */
             }
 
             .links a {
-                font-size: 0.85rem;
+                font-size: 0.75rem; /* smaller text */
                 margin: 0;
+                padding: 2px 4px; /* optional padding to fit */
             }
 
             /* Main Section */
@@ -316,7 +317,7 @@
             /* Our Pictures Section */
             .about-details {
                 flex-direction: column;
-                gap: 12px; /* reduced gap */
+                gap: 12px; 
                 align-items: center;
             }
 
@@ -326,9 +327,16 @@
                 height: auto;
             }
 
-            /* Countdowns */
+            /* Countdowns mobile-friendly stack */
+            #countdowns .about-details {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
             .countdown-box {
-                width: 95%;
+                width: 90%;
+                max-width: 300px;
                 padding: 15px;
             }
 
@@ -337,7 +345,7 @@
             }
 
             .time {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
 
             /* Modal */
