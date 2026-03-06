@@ -493,12 +493,13 @@ function startCountdown(elementId, month, day) {
 
         el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
+    
 }
 
 // YOUR DATES
-startCountdown("herBirthday", 3, 7);
-startCountdown("myBirthday", 7, 14);
-startCountdown("anniversary", 3, 7);
+startCountdown("herBirthday", 3, 7, "HAPPY BIRTHDAYY 🎂");
+startCountdown("myBirthday", 7, 14, "HAPPY BIRTHDAYY 🎉");
+startCountdown("anniversary", 3, 7, "HAPPY ANNIVERSARYYYYYY 💖");
 
 // Hide navbar on scroll down, show on scroll up
 let lastScrollTop = 0;
