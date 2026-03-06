@@ -34,10 +34,6 @@
 
         /* Navbar */
         nav {
-            transition: top 0.3s ease;
-        }
-        
-        nav {
             width: 100%;
             height: 10vh;
             position: fixed;
@@ -45,6 +41,7 @@
             left: 0;
             background: black;
             z-index: 1000;
+            transition: top 0.3s ease;
         }
 
         .nav-container {
@@ -76,7 +73,6 @@
             font-weight: 550;
             position: relative;
             text-decoration: none;
-            margin: 0 20px;
             transition: 0.3s linear;
         }
 
@@ -98,7 +94,7 @@
         section {
             width: 100%;
             min-height: 90vh;
-            padding-top: 12vh;
+            padding-top: 80px; /* ensure below navbar */
         }
 
         /* Main Section */
@@ -169,7 +165,6 @@
             padding: 50px 20px;
         }
 
-        /* REAL centered title – same size & glow */
         .about .content .title {
             font-size: clamp(2rem, 4vw + 1rem, 2.5rem);
             color: #d47fff;
@@ -261,7 +256,7 @@
         /* ================= MOBILE RESPONSIVE ================= */
         @media (max-width: 768px) {
 
-            /* Navbar stacked */
+            /* Navbar one line */
             nav {
                 height: 60px;
                 padding: 0 10px;
@@ -321,7 +316,7 @@
             /* Our Pictures Section */
             .about-details {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px; /* reduced gap */
                 align-items: center;
             }
 
@@ -333,9 +328,16 @@
 
             /* Countdowns */
             .countdown-box {
-                width: 90%;
-                padding: 20px;
-                margin: 0 auto;
+                width: 95%;
+                padding: 15px;
+            }
+
+            .countdown-box h3 {
+                font-size: 1rem;
+            }
+
+            .time {
+                font-size: 0.9rem;
             }
 
             /* Modal */
@@ -350,7 +352,7 @@
                 font-size: 28px;
             }
         }
-        </style>
+    </style>
 </head>
 
 <body>
@@ -385,7 +387,6 @@
 <section class="about" id="our-pictures">
     <div class="content">
         <h2 class="title">Our Pictures</h2>
-
         <div class="about-details">
             <img src="1.jpeg" alt="Picture 1">
             <img src="2.jpeg" alt="Picture 2">
@@ -401,21 +402,18 @@
 </section>
 
 <!-- Countdowns -->
- <section class="about" id="countdowns">
+<section class="about" id="countdowns">
     <div class="content">
         <h2 class="title">Countdowns 💕</h2>
-
         <div class="about-details">
             <div class="countdown-box">
                 <h3>Her Birthday 🎂</h3>
                 <div class="time" id="herBirthday"></div>
             </div>
-
             <div class="countdown-box">
                 <h3>My Birthday 🎉</h3>
                 <div class="time" id="myBirthday"></div>
             </div>
-
             <div class="countdown-box">
                 <h3>Our Anniversary 💖</h3>
                 <div class="time" id="anniversary"></div>
@@ -430,94 +428,84 @@
     <img id="modalImg" src="">
 </div>
 
-<!-- Typewriter + Modal JS -->
+<!-- Typewriter + Modal + Countdown JS -->
 <script>
-const message = "I love you so much ❤️";
-const target = document.querySelector(".typewriter-text");
-let index = 0;
-
-function typeWriter() {
-    if (index < message.length) {
-        target.textContent += message[index];
-        index++;
-        setTimeout(typeWriter, 150);
+    // Typewriter
+    const message = "I love you so much ❤️";
+    const target = document.querySelector(".typewriter-text");
+    let index = 0;
+    function typeWriter() {
+        if (index < message.length) {
+            target.textContent += message[index];
+            index++;
+            setTimeout(typeWriter, 150);
+        }
     }
-}
+    window.addEventListener("load", typeWriter);
 
-window.addEventListener("load", typeWriter);
+    // Modal
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeModal = document.getElementById("closeModal");
+    const galleryImages = document.querySelectorAll(".about-details img");
 
-// Modal
-const modal = document.getElementById("imgModal");
-const modalImg = document.getElementById("modalImg");
-const closeModal = document.getElementById("closeModal");
-const galleryImages = document.querySelectorAll(".about-details img");
-
-galleryImages.forEach(img => {
-    img.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src = img.src;
+    galleryImages.forEach(img => {
+        img.addEventListener("click", () => {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        });
     });
-});
 
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-});
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
 
-modal.addEventListener("click", e => {
-    if (e.target === modal) modal.style.display = "none";
-});
+    modal.addEventListener("click", e => {
+        if (e.target === modal) modal.style.display = "none";
+    });
 
-// Countdown
-function startCountdown(elementId, month, day) {
-    const el = document.getElementById(elementId);
-    const now = new Date();
-    let year = now.getFullYear();
-    let target = new Date(year, month - 1, day);
+    // Countdown
+    function startCountdown(elementId, month, day, message) {
+        const el = document.getElementById(elementId);
+        const now = new Date();
+        let year = now.getFullYear();
+        let target = new Date(year, month - 1, day);
 
-    if (target < now) {
-        target = new Date(year + 1, month - 1, day);
-    }
-
-    setInterval(() => {
-        const distance = target - new Date();
-
-        if (distance < 0) {
-            el.innerHTML = "Today 🥰";
-            return;
+        if (target < now) {
+            target = new Date(year + 1, month - 1, day);
         }
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-    
-}
-
-// YOUR DATES
-startCountdown("herBirthday", 3, 7, "HAPPY BIRTHDAYY 🎂");
-startCountdown("myBirthday", 7, 14, "HAPPY BIRTHDAYY 🎉");
-startCountdown("anniversary", 3, 7, "HAPPY ANNIVERSARYYYYYY 💖");
-
-// Hide navbar on scroll down, show on scroll up
-let lastScrollTop = 0;
-const navbar = document.querySelector('nav');
-
-window.addEventListener('scroll', () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-        // Scrolling down
-        navbar.style.top = "-10vh"; // hide navbar
-    } else {
-        // Scrolling up
-        navbar.style.top = "0"; // show navbar
+        setInterval(() => {
+            const distance = target - new Date();
+            if (distance < 0) {
+                el.innerHTML = message;
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            el.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
     }
 
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // avoid negative scroll
-});
+    startCountdown("herBirthday", 3, 7, "HAPPY BIRTHDAYY 🎂");
+    startCountdown("myBirthday", 7, 14, "HAPPY BIRTHDAYY 🎉");
+    startCountdown("anniversary", 3, 7, "HAPPY ANNIVERSARYYYYYY 💖");
+
+    // Navbar hide/show on scroll
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('nav');
+
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            navbar.style.top = "-10vh";
+        } else {
+            navbar.style.top = "0";
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
 </script>
 
 </body>
