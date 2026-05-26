@@ -365,7 +365,6 @@
 
 <body>
 
-<!-- Navbar -->
 <nav>
     <div class="nav-container">
         <div class="logo"><span>Hi my loveee</span></div>
@@ -377,7 +376,6 @@
     </div>
 </nav>
 
-<!-- Main Section -->
 <section id="home">
     <div class="main-container">
         <div class="image">
@@ -391,7 +389,6 @@
     </div>
 </section>
 
-<!-- Our Pictures Section -->
 <section class="about" id="our-pictures">
     <div class="content">
         <h2 class="title">Our Pictures</h2>
@@ -409,7 +406,6 @@
     </div>
 </section>
 
-<!-- Countdowns -->
 <section class="about" id="countdowns">
     <div class="content">
         <h2 class="title">Countdowns 💕</h2>
@@ -430,13 +426,11 @@
     </div>
 </section>
 
-<!-- Image Modal -->
 <div id="imgModal">
     <span id="closeModal">&times;</span>
     <img id="modalImg" src="">
 </div>
 
-<!-- Typewriter + Modal + Countdown JS -->
 <script>
     // Typewriter
     const message = "I love you so much ❤️";
@@ -455,7 +449,8 @@
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
     const closeModal = document.getElementById("closeModal");
-    const galleryImages = document.querySelectorAll(".about-details img");
+    // Updated to include the home screen main image in the clickable popups
+    const galleryImages = document.querySelectorAll(".about-details img, .main-container .image img");
 
     galleryImages.forEach(img => {
         img.addEventListener("click", () => {
@@ -475,6 +470,10 @@
     // Countdown
     function startCountdown(elementId, month, day, message) {
         const el = document.getElementById(elementId);
+        
+        // Safety guard in case the ID is completely missing
+        if (!el) return;
+
         const now = new Date();
         let year = now.getFullYear();
         let target = new Date(year, month - 1, day);
@@ -497,9 +496,10 @@
         }, 1000);
     }
 
-    startCountdown("Jin's Birthday", 3, 7, "HAPPY BIRTHDAYY 🎂");
-    startCountdown("Chen's Birthday", 7, 14, "HAPPY BIRTHDAYY 🎉");
-    startCountdown("OUR ANNIVERSARYY", 3, 7, "HAPPY ANNIVERSARYYYYYY 💖");
+    // FIXED: Element IDs now match the camelCase IDs in the HTML markup perfectly
+    startCountdown("herBirthday", 3, 7, "HAPPY BIRTHDAYY 🎂");
+    startCountdown("myBirthday", 7, 14, "HAPPY BIRTHDAYY 🎉");
+    startCountdown("anniversary", 3, 7, "HAPPY ANNIVERSARYYYYYY 💖");
 
     // Navbar hide/show on scroll
     let lastScrollTop = 0;
